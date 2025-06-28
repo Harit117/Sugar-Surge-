@@ -1,0 +1,20 @@
+import yfinance as yf
+import pandas as pd
+import matplotlib.pyplot as plt
+
+tickers = ['EIDPARRY.NS', 'DWARKESH.NS', 'BALRAMCHIN.NS', 'DHAMPURSUG.NS']
+start_date = '2023-01-01'
+end_date = '2024-01-01'
+data = yf.download(tickers, start=start_date, end=end_date)['Adj Close']
+normalized_sum = (data / data.iloc[0])
+sum_series = normalized_sum.sum(axis=1)
+
+plt.figure(figsize=(10, 6))
+plt.plot(sum_series, label='Normalized Summation of Sugar Stocks', color='mediumblue')
+plt.title('Normalized Summation Graph for Sugar Sector Stocks (2023)')
+plt.xlabel('Date')
+plt.ylabel('Summed Normalized Price')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
