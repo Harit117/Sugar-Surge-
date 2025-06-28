@@ -1,0 +1,26 @@
+import yfinance as yf
+import pandas as pd
+import matplotlib.pyplot as plt
+
+tickers = ['EIDPARRY.NS', 'BALRAMCHIN.NS', 'DWARKESH.NS', 'AVADHSUGAR.NS']
+start_date = '2023-01-01'
+end_date = '2024-01-01'
+
+data = yf.download(tickers, start=start_date, end=end_date)['Adj Close']
+normalized = data / data.iloc[0]
+summation = normalized.sum(axis=1)
+
+plt.figure(figsize=(12, 7))
+plt.plot(summation, label='Normalized Summation', color='black')
+plt.plot(normalized['EIDPARRY.NS'], label='EIDPARRY.NS', color='blue')
+plt.plot(normalized['BALRAMCHIN.NS'], label='BALRAMCHIN.NS', color='green')
+plt.plot(normalized['DWARKESH.NS'], label='DWARKESH.NS', color='purple')
+plt.plot(normalized['AVADHSUGAR.NS'], label='AVADHSUGAR.NS', color='orange')
+
+plt.title('Normalized Summation and Individual Prices of Top Sugar Companies in India (2023)')
+plt.xlabel('Date')
+plt.ylabel('Normalized Prices')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
